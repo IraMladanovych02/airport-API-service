@@ -22,7 +22,7 @@ from django.conf import settings
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
-    SpectacularRedocView
+    SpectacularRedocView,
 )
 
 
@@ -38,6 +38,8 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path(
-        "v1/airport/api/doc/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"
+        "v1/airport/api/doc/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
     ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

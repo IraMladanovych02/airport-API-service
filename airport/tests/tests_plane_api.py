@@ -121,7 +121,8 @@ class AdminBusTests(TestCase):
         payload = {
             "info": "Airbus A380-800",
             "num_seats": 400,
-            "services": [service_1.id, service_2.id]}
+            "services": [service_1.id, service_2.id],
+        }
         res = self.client.post(PLANE_URL, payload)
 
         plane = Plane.objects.get(id=res.data["id"])
@@ -131,5 +132,3 @@ class AdminBusTests(TestCase):
         self.assertIn(service_1, services)
         self.assertIn(service_2, services)
         self.assertEqual(services.count(), 2)
-
-

@@ -25,9 +25,7 @@ class PlaneImageSerializer(serializers.ModelSerializer):
 
 class PlaneListSerializer(PlaneSerializer):
     services = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field="name"
+        many=True, read_only=True, slug_field="name"
     )
 
 
@@ -54,11 +52,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = (
-            "id",
-            "created_at",
-            "tickets"
-        )
+        fields = ("id", "created_at", "tickets")
 
     def create(self, validated_data):
         with transaction.atomic():
@@ -72,13 +66,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
-        fields = (
-            "id",
-            "source",
-            "destination",
-            "departure",
-            "plane"
-        )
+        fields = ("id", "source", "destination", "departure", "plane")
 
 
 class TripListSerializer(serializers.ModelSerializer):
@@ -95,17 +83,14 @@ class TripListSerializer(serializers.ModelSerializer):
             "departure",
             "plane_info",
             "plane_num_seats",
-            "tickets_available"
+            "tickets_available",
         )
 
 
 class TripRetrieveSerializer(TripSerializer):
     plane = PlaneRetrieveSerializer(many=False, read_only=True)
     taken_seats = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field="seat",
-        source="tickets"
+        many=True, read_only=True, slug_field="seat", source="tickets"
     )
     fields = ("id", "source", "destination", "departure", "plane", "taken_seats")
 

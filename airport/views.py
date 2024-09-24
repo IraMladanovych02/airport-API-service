@@ -1,13 +1,11 @@
 from django.db.models import Count, F
 from rest_framework import viewsets, status
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from airport.models import Plane, Trip, Service, Order
-from airport.permissions import IsAdminOrIsAuthenticatedOrReadOnly
 from airport.serializers import (
     PlaneSerializer,
     TripSerializer,
