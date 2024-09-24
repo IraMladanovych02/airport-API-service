@@ -3,28 +3,27 @@ from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
-from airport.models import Plane, Trip, Facility, Order
+from airport.models import Plane, Trip, Service, Order
 from airport.permissions import IsAdminOrIsAuthenticatedOrReadOnly
 from airport.serializers import (
     PlaneSerializer,
     TripSerializer,
     TripListSerializer,
     PlaneListSerializer,
-    FacilitySerializer,
+    ServiceSerializer,
     PlaneRetrieveSerializer,
     TripRetrieveSerializer,
-    OrderSerializer, PlaneImageSerializer,
+    OrderSerializer,
+    PlaneImageSerializer,
 )
 
 
-class FacilityViewSet(viewsets.ModelViewSet):
-    queryset = Facility.objects.all()
-    serializer_class = FacilitySerializer
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAdminOrIsAuthenticatedOrReadOnly,)
+class ServiceViewSet(viewsets.ModelViewSet):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
 
 
 class PlaneViewSet(viewsets.ModelViewSet):
@@ -46,18 +45,21 @@ class PlaneViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        facilities = self.request.query_params.get("facilities")
-        if facilities:
-            facilities = self._params_to_ints(facilities)
-            queryset = queryset.filter(facilities__id__in=facilities)
+        services = self.request.query_params.get("services")
+        if services:
+            services = self._params_to_ints(services)
+            queryset = queryset.filter(services__id__in=services)
         if self.action in ("list", "retrieve"):
-            return queryset.prefetch_related("facilities")
+            queryset.prefetch_related("services")
+
         return queryset.distinct()
 
     @action(
         methods=["POST"],
         detail=True,
-        permission_classes=[IsAdminUser,],
+        permission_classes=[
+            IsAdminUser,
+        ],
         url_path="upload-image",
     )
     def upload_image(self, request, pk=None):
@@ -83,10 +85,8 @@ class TripViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = self.queryset
         if self.action in "list":
-            queryset = (
-                queryset
-                .select_related()
-                .annotate(tickets_available=F("plane__num_seats") - Count("tickets"))
+            queryset = queryset.select_related().annotate(
+                tickets_available=F("plane__num_seats") - Count("tickets")
             )
         elif self.action in "retrieve":
             queryset = queryset.select_related()
@@ -107,7 +107,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset.filter(user=self.request.user)
-        if self.action == "list":
+        if self.action in "list":
             queryset = queryset.prefetch_related("tickets__trip__plane")
         return queryset
 

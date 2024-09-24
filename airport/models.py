@@ -9,34 +9,40 @@ from rest_framework.exceptions import ValidationError
 from app import settings
 
 
-class Facility(models.Model):
+class Service(models.Model):
+    """This model includes additional equipment and conveniences for planes (e.g., Wi-Fi, free snacks, drinks, etc.)."""
+
     name = models.CharField(max_length=255, unique=True)
 
     class Meta:
-        verbose_name_plural = "facilities"
+        verbose_name_plural = "services"
 
     def __str__(self):
         return self.name
 
 
 def image_path(instance, filename) -> pathlib.Path:
-    filename = f"{slugify(instance.info)}--{uuid.uuid4()}" + pathlib.Path(filename).suffix
+    filename = (
+        f"{slugify(instance.info)}--{uuid.uuid4()}" + pathlib.Path(filename).suffix
+    )
     return pathlib.Path("upload/planes/") / pathlib.Path(filename)
 
 
 class Plane(models.Model):
     info = models.CharField(max_length=255, null=True)
     num_seats = models.IntegerField()
-    facilities = models.ManyToManyField("Facility", related_name="plays")
+    services = models.ManyToManyField("Service", related_name="planes", blank=True)
     image = models.ImageField(null=True, upload_to=image_path)
+
+    class Meta:
+        verbose_name_plural = "planes"
 
     @property
     def is_small_or_big(self):
         return self.num_seats <= 50
 
     def __str__(self):
-        return self.info
-
+        return f"Plane: {self.info } - {self.id}"
 
 
 class Trip(models.Model):
@@ -65,9 +71,7 @@ class Ticket(models.Model):
     def validate_seat(seat: int, num_seats: int):
         if not (1 <= seat <= num_seats):
             raise ValidationError(
-                {
-                    "seat": f"Seat must be in the range [1, {num_seats}], not {seat}."
-                }
+                {"seat": f"Seat must be in the range [1, {num_seats}], not {seat}."}
             )
 
     def clean(self):

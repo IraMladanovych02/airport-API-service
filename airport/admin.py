@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from airport.models import Plane, Facility, Order, Trip, Ticket
+from airport.models import Plane, Service, Order, Trip, Ticket
 
 
 class TicketInLine(admin.TabularInline):
@@ -14,6 +14,6 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Plane)
-admin.site.register(Facility)
+admin.site.register(Service)
 admin.site.register(Trip)
 admin.site.register(Ticket)

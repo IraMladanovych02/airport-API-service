@@ -1,19 +1,19 @@
 from django.db import transaction
 from rest_framework import serializers
 
-from airport.models import Plane, Trip, Facility, Ticket, Order
+from airport.models import Plane, Trip, Service, Ticket, Order
 
 
-class FacilitySerializer(serializers.ModelSerializer):
+class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Facility
+        model = Service
         fields = ("id", "name")
 
 
 class PlaneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plane
-        fields = ("id", "info", "num_seats", "facilities", "is_small_or_big")
+        fields = ("id", "info", "num_seats", "services", "is_small_or_big")
 
 
 class PlaneImageSerializer(serializers.ModelSerializer):
@@ -24,15 +24,15 @@ class PlaneImageSerializer(serializers.ModelSerializer):
 
 
 class PlaneListSerializer(PlaneSerializer):
-    facilities = serializers.SlugRelatedField(
+    services = serializers.SlugRelatedField(
         many=True,
         read_only=True,
-        slug_field="name",
+        slug_field="name"
     )
 
 
 class PlaneRetrieveSerializer(PlaneSerializer):
-    facilities = FacilitySerializer(many=True)
+    services = ServiceSerializer(many=True, read_only=True)
 
 
 class TicketSerializer(serializers.ModelSerializer):
@@ -41,11 +41,12 @@ class TicketSerializer(serializers.ModelSerializer):
         fields = ("id", "seat", "trip")
 
     def validate(self, attrs):
-        Ticket.validate_seat(
-            attrs["seat"],
-            attrs['trip'].plane.num_seats,
-            serializers.ValidationError
-        )
+        seat = attrs.get("seat")
+        trip = attrs.get("trip")
+        if not seat or not trip:
+            raise serializers.ValidationError("Seat and trip are required.")
+        Ticket.validate_seat(seat, trip.plane.num_seats)
+        return attrs
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -53,7 +54,11 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ("id", "created_at", "tickets",)
+        fields = (
+            "id",
+            "created_at",
+            "tickets"
+        )
 
     def create(self, validated_data):
         with transaction.atomic():
@@ -67,7 +72,13 @@ class OrderSerializer(serializers.ModelSerializer):
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
-        fields = ("id", "source", "destination", "departure", "plane",)
+        fields = (
+            "id",
+            "source",
+            "destination",
+            "departure",
+            "plane"
+        )
 
 
 class TripListSerializer(serializers.ModelSerializer):
@@ -94,7 +105,7 @@ class TripRetrieveSerializer(TripSerializer):
         many=True,
         read_only=True,
         slug_field="seat",
-        source="tickets",
+        source="tickets"
     )
     fields = ("id", "source", "destination", "departure", "plane", "taken_seats")
 
