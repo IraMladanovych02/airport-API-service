@@ -1,7 +1,5 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
-from django.urls import reverse
-from airport.models import Order, Ticket
 from user.models import User
 
 
