@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", "secret-key-value")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -140,7 +141,7 @@ DATABASES = {
         "NAME": os.getenv("POSTGRES_DB"),
         "USER": os.getenv("POSTGRES_USER"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("POSTGRES_HOST", "db"),
+        "HOST": os.environ.get("POSTGRES_HOST"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }

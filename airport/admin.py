@@ -13,7 +13,25 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = (TicketInLine,)
 
 
-admin.site.register(Plane)
-admin.site.register(Service)
-admin.site.register(Trip)
-admin.site.register(Ticket)
+@admin.register(Plane)
+class PlaneAdmin(admin.ModelAdmin):
+    search_fields = ("info",)
+    list_display = ("num_seats", "info")
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    search_fields = ('name',)
+    list_display = ("name", )
+
+
+@admin.register(Trip)
+class TripAdmin(admin.ModelAdmin):
+    search_fields = ("source", "destination",)
+    list_display = ("source", "destination", "departure", "plane",)
+
+
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    search_fields = ("seat",)
+    list_display = ("seat", "trip", "order")

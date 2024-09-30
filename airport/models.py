@@ -49,7 +49,7 @@ class Trip(models.Model):
     source = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
     departure = models.DateTimeField()
-    plane = models.ForeignKey("Plane", on_delete=models.CASCADE)
+    plane = models.ForeignKey("Plane", on_delete=models.CASCADE, related_name="trips")
 
     def __str__(self):
         return f"{self.source} - {self.destination} ({self.departure})"
@@ -57,8 +57,8 @@ class Trip(models.Model):
 
 class Ticket(models.Model):
     seat = models.IntegerField()
-    trip = models.ForeignKey("Trip", on_delete=models.CASCADE)
-    order = models.ForeignKey("Order", on_delete=models.CASCADE)
+    trip = models.ForeignKey("Trip", on_delete=models.CASCADE, related_name="tickets")
+    order = models.ForeignKey("Order", on_delete=models.CASCADE, related_name="tickets")
 
     class Meta:
         unique_together = ("trip", "seat")
@@ -84,7 +84,7 @@ class Ticket(models.Model):
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="orders")
 
     class Meta:
         ordering = ("-created_at",)
