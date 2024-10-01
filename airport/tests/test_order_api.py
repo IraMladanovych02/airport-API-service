@@ -1,11 +1,12 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
-from user.models import User
+
+from django.contrib.auth import get_user_model
 
 
 class OrderAPITestCase(APITestCase):
     def setUp(self):
-        self.user = User.objects.create_user(email='test@test.com', password='testpassword')
+        self.user = get_user_model().objects.create_user(email='test@test.com', password='testpassword')
         self.client.force_authenticate(user=self.user)
 
     def test_create_order(self):

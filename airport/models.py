@@ -4,6 +4,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
+
 from rest_framework.exceptions import ValidationError
 
 from app import settings
