@@ -1,0 +1,4 @@
+[2025-07-26 16:21:42,096] WARNING django.request Not Found: /
+[2025-07-26 16:21:42,096] WARNING django.request Not Found: /
+[2025-07-26 16:21:42,097] WARNING django.server "GET / HTTP/1.1" 404 179
+[2025-07-26 16:21:42,097] WARNING django.server "GET / HTTP/1.1" 404 179

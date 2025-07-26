@@ -58,6 +58,73 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "app.urls"
 
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} {name} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {name} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "airport_file": {
+            "level": "INFO",
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "filename": os.path.join(LOG_DIR, "logs"),
+            "when": "midnight",
+            "formatter": "verbose",
+            "delay": True,
+        },
+        "database_file": {
+                "level": "INFO",
+                "class": "logging.handlers.TimedRotatingFileHandler",
+                "filename": os.path.join(LOG_DIR, "database.log"),
+                "when": "midnight",
+                "backupCount": 7,
+                "formatter": "verbose",
+                "delay": True,
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "airport_file"],
+            "level": "WARNING",
+        },
+        "django.db.backends": {
+            "handlers": ["console", "database_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "": {
+            "handlers": ["console", "airport_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "faker": {
+            "handlers": ["console", "airport_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "factory": {
+            "handlers": ["console", "airport_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
