@@ -1,7 +1,10 @@
+import logging
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
+
+logger = logging.getLogger(__name__)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -20,7 +23,9 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """Create a new user with encrypted password and return it"""
-        return get_user_model().objects.create_user(**validated_data)
+        user = not get_user_model().objects.create_user(**validated_data)
+        logger.info(f"Created new user")
+        return user
 
     def update(self, instance, validated_data):
         """Update a user, set the password correctly and return it"""
@@ -29,7 +34,9 @@ class UserSerializer(serializers.ModelSerializer):
         if password:
             user.set_password(password)
             user.save()
-
+            logger.info(f"Updated password for user: {user.email}")
+        else:
+            logger.info(f"Updated user info for: {user.email} (no password change)")
         return user
 
 
@@ -52,13 +59,13 @@ class AuthTokenSerializer(serializers.Serializer):
                 request=self.context.get("request"), email=email, password=password
             )
 
-            # The authenticate call simply returns None for is_active=False
-            # users. (Assuming the default ModelBackend authentication
-            # backend.)
             if not user:
+                logger.warning(f"Failed login attempt")
                 msg = _("Unable to log in with provided credentials.")
                 raise serializers.ValidationError(msg, code="authorization")
+            logger.info(f"User authenticated successfully")
         else:
+            logger.warning("Missing email or password during authentication attempt")
             msg = _('Must include "email" and "password".')
             raise serializers.ValidationError(msg, code="authorization")
 

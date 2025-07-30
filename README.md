@@ -9,6 +9,8 @@ The Airport API is a RESTful web service designed for managing airport-related i
 
 - **User Management**: Create and manage user accounts.
 - **Plane Management**: Manage information related to airport(planes, orders, services, etc).
+- This project uses Python's built-in `logging` module to record key events and user actions
+
 
 
 **Also you can find project mapping in folder "doc"**
@@ -48,4 +50,8 @@ Once Python is installed, follow these steps to set up the Airport API Service:
 7. Start the development server:
    ```bash
    python manage.py runserver
-   
+
+## Monitoring system
+This project uses prometheus metrics, which are automatically exposed at:
+- http://localhost:8000/metrics — from app
+- http://localhost:9090 — Prometheus dashboard

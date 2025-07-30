@@ -1,3 +1,4 @@
+import logging
 from django.db.models import Count, F
 
 from rest_framework import viewsets, status
@@ -18,6 +19,8 @@ from airport.serializers import (
     OrderSerializer,
     PlaneImageSerializer,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
@@ -63,10 +66,13 @@ class PlaneViewSet(viewsets.ModelViewSet):
     )
     def upload_image(self, request, pk=None):
         plane = self.get_object()
+        logger.info(f"Uploading image for plane: {plane.id}")
         serializer = self.get_serializer(plane, data=request.data)
         if serializer.is_valid():
             serializer.save()
+            logger.info("Image uploaded successfully")
             return Response(serializer.data, status=status.HTTP_200_OK)
+        logger.warning(f"Image upload failed: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -112,8 +118,10 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        logger.info(f"Order created by user: {self.request.user.id}")
 
     def get_serializer_class(self):
+        logger.debug(f"OrderViewSet action: {self.action}")
         serializer = self.serializer_class
         if self.action == "list":
             serializer = OrderSerializer

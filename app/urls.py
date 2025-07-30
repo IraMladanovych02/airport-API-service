@@ -29,6 +29,7 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('', include('django_prometheus.urls')),
     path("airport/", include("airport.urls", namespace="airport")),
     path("user/", include("user.urls", namespace="user")),
     path("__debug__/", include("debug_toolbar.urls")),
