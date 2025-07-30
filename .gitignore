@@ -406,3 +406,6 @@ Dockerfile
 CACHED/
 exporting/
 identifier.sqlite
+# Ignore logs
+*.logs
+

@@ -19,6 +19,8 @@ from airport.serializers import (
     OrderSerializer,
     PlaneImageSerializer,
 )
+from notification.telegram_utils import send_telegram_message
+
 
 logger = logging.getLogger(__name__)
 
@@ -127,3 +129,13 @@ class OrderViewSet(viewsets.ModelViewSet):
             serializer = OrderSerializer
 
         return serializer
+
+    def send_message_to_new_order(self, serializer):
+        order = serializer.save(user=self.request.user)
+        logger.info(f"Order created by user: {self.request.user.id}")
+        message = (
+            "🧾 <b>New Order Created</b>\n"
+            f"👤 User ID: <code>{self.request.user.id}</code>\n"
+            f"🕒 Date: {order.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
+        )
+        send_telegram_message(message)
