@@ -3,7 +3,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 from notification.email_utils import send_welcome_email
-from notification.telegram_utils import send_telegram_message
 
 User = get_user_model()
 logger = logging.getLogger(__name__)

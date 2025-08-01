@@ -1,0 +1,60 @@
+[2025-07-30 09:26:00,303] WARNING django.request Not Found: /
+[2025-07-30 09:26:00,303] WARNING django.request Not Found: /
+[2025-07-30 09:26:00,304] WARNING django.server "GET / HTTP/1.1" 404 179
+[2025-07-30 09:26:00,304] WARNING django.server "GET / HTTP/1.1" 404 179
+[2025-07-30 09:26:00,376] WARNING django.request Not Found: /favicon.ico
+[2025-07-30 09:26:00,376] WARNING django.request Not Found: /favicon.ico
+[2025-07-30 09:26:00,376] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 179
+[2025-07-30 09:26:00,376] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 179
+[2025-07-30 09:26:07,409] WARNING django.request Unauthorized: /airport/
+[2025-07-30 09:26:07,409] WARNING django.request Unauthorized: /airport/
+[2025-07-30 09:26:07,410] WARNING django.server "GET /airport/ HTTP/1.1" 401 5006
+[2025-07-30 09:26:07,410] WARNING django.server "GET /airport/ HTTP/1.1" 401 5006
+[2025-07-30 09:26:07,429] WARNING django.request Not Found: /static/rest_framework/css/bootstrap.min.css
+[2025-07-30 09:26:07,429] WARNING django.request Not Found: /static/rest_framework/css/bootstrap-tweaks.css
+[2025-07-30 09:26:07,429] WARNING django.request Not Found: /static/rest_framework/css/bootstrap.min.css
+[2025-07-30 09:26:07,429] WARNING django.request Not Found: /static/rest_framework/css/bootstrap-tweaks.css
+[2025-07-30 09:26:07,430] WARNING django.request Not Found: /static/rest_framework/css/prettify.css
+[2025-07-30 09:26:07,430] WARNING django.request Not Found: /static/rest_framework/css/prettify.css
+[2025-07-30 09:26:07,432] WARNING django.request Not Found: /static/rest_framework/css/default.css
+[2025-07-30 09:26:07,432] WARNING django.server "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 404 179
+[2025-07-30 09:26:07,433] WARNING django.server "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 404 179
+[2025-07-30 09:26:07,433] WARNING django.server "GET /static/rest_framework/css/prettify.css HTTP/1.1" 404 179
+[2025-07-30 09:26:07,434] WARNING django.request Not Found: /static/rest_framework/js/jquery-3.7.1.min.js
+[2025-07-30 09:26:07,432] WARNING django.request Not Found: /static/rest_framework/css/default.css
+[2025-07-30 09:26:07,432] WARNING django.server "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 404 179
+[2025-07-30 09:26:07,433] WARNING django.server "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 404 179
+[2025-07-30 09:26:07,433] WARNING django.server "GET /static/rest_framework/css/prettify.css HTTP/1.1" 404 179
+[2025-07-30 09:26:07,435] WARNING django.request Not Found: /static/rest_framework/js/ajax-form.js
+[2025-07-30 09:26:07,434] WARNING django.request Not Found: /static/rest_framework/js/jquery-3.7.1.min.js
+[2025-07-30 09:26:07,435] WARNING django.request Not Found: /static/rest_framework/js/bootstrap.min.js
+[2025-07-30 09:26:07,436] WARNING django.request Not Found: /static/rest_framework/js/csrf.js
+[2025-07-30 09:26:07,437] WARNING django.server "GET /static/rest_framework/css/default.css HTTP/1.1" 404 179
+[2025-07-30 09:26:07,437] WARNING django.request Not Found: /static/rest_framework/js/default.js
+[2025-07-30 09:26:07,435] WARNING django.request Not Found: /static/rest_framework/js/ajax-form.js
+[2025-07-30 09:26:07,438] WARNING django.request Not Found: /static/rest_framework/js/prettify-min.js
+[2025-07-30 09:26:07,438] WARNING django.server "GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,435] WARNING django.request Not Found: /static/rest_framework/js/bootstrap.min.js
+[2025-07-30 09:26:07,436] WARNING django.request Not Found: /static/rest_framework/js/csrf.js
+[2025-07-30 09:26:07,437] WARNING django.server "GET /static/rest_framework/css/default.css HTTP/1.1" 404 179
+[2025-07-30 09:26:07,437] WARNING django.request Not Found: /static/rest_framework/js/default.js
+[2025-07-30 09:26:07,438] WARNING django.request Not Found: /static/rest_framework/js/prettify-min.js
+[2025-07-30 09:26:07,438] WARNING django.server "GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,439] WARNING django.server "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,440] WARNING django.server "GET /static/rest_framework/js/default.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,440] WARNING django.server "GET /static/rest_framework/js/csrf.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,439] WARNING django.server "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,441] WARNING django.request Not Found: /static/rest_framework/js/load-ajax-form.js
+[2025-07-30 09:26:07,441] WARNING django.request Not Found: /static/rest_framework/js/load-ajax-form.js
+[2025-07-30 09:26:07,441] WARNING django.server "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,440] WARNING django.server "GET /static/rest_framework/js/default.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,440] WARNING django.server "GET /static/rest_framework/js/csrf.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,439] WARNING django.server "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,439] WARNING django.server "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,441] WARNING django.server "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,442] WARNING django.server "GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 404 179
+[2025-07-30 09:26:07,442] WARNING django.server "GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 404 179
+[2025-07-30 09:26:55,677] WARNING django.request Not Found: /favicon.ico
+[2025-07-30 09:26:55,677] WARNING django.request Not Found: /favicon.ico
+[2025-07-30 09:26:55,678] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 179
+[2025-07-30 09:26:55,678] WARNING django.server "GET /favicon.ico HTTP/1.1" 404 179

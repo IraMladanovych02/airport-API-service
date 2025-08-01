@@ -32,6 +32,8 @@ urlpatterns = [
     path('', include('django_prometheus.urls')),
     path("airport/", include("airport.urls", namespace="airport")),
     path("user/", include("user.urls", namespace="user")),
+    path("feedback/", include("feedback.urls", namespace="feedback")),
+
     path("__debug__/", include("debug_toolbar.urls")),
     path("v1/airport/api/doc/", SpectacularAPIView.as_view(), name="schema"),
     path(
