@@ -1,8 +1,9 @@
+from typing import NoReturn
 from django.core.mail import send_mail
 from django.conf import settings
 
 
-def send_welcome_email(to_email):
+def send_welcome_email(to_email: str) -> NoReturn:
     subject = "Welcome to Airport Service!"
     message = (
         "Hi there,\n\n"
