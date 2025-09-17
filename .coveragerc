@@ -1,0 +1,9 @@
+[run]
+branch = True
+
+[paths]
+source = .
+
+[report]
+exclude_lines =
+    pragma: no cover
